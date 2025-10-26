@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moods-service-deployment
+  labels:
+    app: moods-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moods-service
+  template:
+    metadata:
+      labels:
+        app: moods-service
+    spec:
+      imagePullSecrets:
+        - name: acr-auth  
+      containers:
+      - name: moods-service
+        image: gratitudeappranya.azurecr.io/samples/gratitude-srv-moods-service:latest
+        ports:
+        - containerPort: 50052

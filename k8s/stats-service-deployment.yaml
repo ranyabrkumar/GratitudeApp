@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stats-service-deployment
+  labels:
+    app: stats-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stats-service
+  template:
+    metadata:
+      labels:
+        app: stats-service
+    spec:
+      imagePullSecrets:
+        - name: acr-auth  
+      containers:
+      - name: stats-service
+        image: gratitudeappranya.azurecr.io/samples/gratitude-srv-stats-service:latest
+        ports:
+        - containerPort: 50053

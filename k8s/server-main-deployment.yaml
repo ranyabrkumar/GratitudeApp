@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-main-deployment
+  labels:
+    app: server-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-main
+  template:
+    metadata:
+      labels:
+        app: server-main
+    spec:
+      imagePullSecrets:
+        - name: acr-auth  
+      containers:
+      - name: server-main
+        image: gratitudeappranya.azurecr.io/samples/gratitude-srv-server-main:latest
+        ports:
+        - containerPort: 5001

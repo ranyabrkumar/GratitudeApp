@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entries-deployment
+  labels:
+    app: entries
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: entries
+  template:
+    metadata:
+      labels:
+        app: entries
+    spec:
+      imagePullSecrets:
+        - name: acr-auth    
+      containers:
+      - name: entries
+        image: gratitudeappranya.azurecr.io/samples/gratitude-srv-entries:latest
+        ports:
+        - containerPort: 50051
