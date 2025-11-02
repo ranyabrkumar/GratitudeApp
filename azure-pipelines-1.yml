@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  name: hvpool  # your custom self-hosted agent pool
+  demands:
+    - agent.name -equals agent_hvpool
+
+steps:
+# Step 1: Login to Azure ACR
+- task: AzureCLI@2
+  displayName: 'Login to ACR'
+  inputs:
+    azureSubscription: 'Academics-Pay-As-You-Go(a4d417d6-4b7d-4dbc-8702-15f88c83dc21)'   # your service connection name
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "Logging in to Azure Container Registry..."
+      az acr login --name ranyabrkumar
+
+# Step 2: Build and Push images using Docker Compose
+- task: DockerCompose@1
+  displayName: 'Build and push Docker images'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Academics-Pay-As-You-Go(a4d417d6-4b7d-4dbc-8702-15f88c83dc21)'
+    azureContainerRegistry: 'ranyabrkumar.azurecr.io'
+    dockerComposeFile: 'docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose build'
+    arguments: '--no-cache'
+
+# Step 3: Optionally run containers (optional)
+- task: DockerCompose@1
+  displayName: 'Run Docker Compose'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Academics-Pay-As-You-Go(a4d417d6-4b7d-4dbc-8702-15f88c83dc21)'
+    azureContainerRegistry: 'ranyabrkumar.azurecr.io'
+    dockerComposeFile: 'docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose up'
+    arguments: '-d'
