@@ -13,44 +13,26 @@ pool:
     - agent.name -equals agent_hvpool  # optional: pin to a specific agent
 
 steps:
-# - script: |
+- script: |
 
-#     echo "Logging in to ACR..."
-#     echo "$(ACR_PASSWORD)" | docker login myregistry.azurecr.io -u pranshub11gratitudeapp --password-stdin
+    echo "Logging in to ACR..."
+    echo "$(ACR_PASSWORD)" | docker login myregistry.azurecr.io -u pranshub11gratitudeapp --password-stdin
 
-#   displayName: 'Login to ACR'
-# - task: DockerCompose@1
-
-#   displayName: 'Build and run Docker Compose'
-#   inputs:
-#     containerregistrytype: 'Azure Container Registry'
-#     azureSubscription: 'Academics-Pay-As-You-Go'
-#     azureContainerRegistry: 'pranshub11gratitudeapp.azurecr.io'
-#     dockerComposeFile: 'docker-compose.yml'
-#     action: 'Run a Docker Compose command'
-#     dockerComposeCommand: 'docker-compose up'
-#     arguments: '-d'
+  displayName: 'Login to ACR'
 - task: DockerCompose@1
 
-  displayName: 'Build services'
-
+  displayName: 'Build and run Docker Compose'
   inputs:
-
-    containerregistrytype: 'Other'
-
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Academics-Pay-As-You-Go'
+    azureContainerRegistry: 'pranshub11gratitudeapp.azurecr.io'
     dockerComposeFile: 'docker-compose.yml'
-
-    projectName: 'gratitudeapp'
-
-    action: 'Build services'
-
-- script: docker compose up -d
-
-  displayName: 'Run Docker Compose'
-
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose up'
+    arguments: '-d'
 # - task: DockerCompose@1
 
-#   displayName: 'Run Docker Compose'
+#   displayName: 'Build services'
 
 #   inputs:
 
@@ -60,8 +42,9 @@ steps:
 
 #     projectName: 'gratitudeapp'
 
-#     action: 'Run Docker Compose'
+#     action: 'Build services'
 
-    # dockerComposeCommand: 'docker-compose up'
+# - script: docker compose up -d
 
-    # arguments: '-d' 
+#   displayName: 'Run Docker Compose'
+
