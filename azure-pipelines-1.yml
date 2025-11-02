@@ -7,6 +7,16 @@ pool:
     - agent.name -equals agent_hvpool
 
 steps:
+#azure login
+- task: AzureCLI@2
+  displayName: 'Test Azure Login'
+  inputs:
+    azureSubscription: 'Academics-Pay-As-You-Go(a4d417d6-4b7d-4dbc-8702-15f88c83dc21)'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az account show
+
 # Step 1: Login to Azure ACR
 - task: AzureCLI@2
   displayName: 'Login to ACR'
