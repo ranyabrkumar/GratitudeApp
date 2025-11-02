@@ -1,0 +1,33 @@
+# Node.js with React
+
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  name: hvpool  # or your custom pool name
+  demands:
+    - agent.name -equals agent_hvpool  # optional: pin to a specific agent
+
+steps:
+- script: |
+
+    echo "Logging in to ACR..."
+    echo "$(ACR_PASSWORD)" | docker login myregistry.azurecr.io -u pranshub11gratitudeapp --password-stdin
+
+  displayName: 'Login to ACR'
+- task: DockerCompose@1
+
+  displayName: 'Build and run Docker Compose'
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Academics-Pay-As-You-Go'
+    azureContainerRegistry: 'pranshub11gratitudeapp.azurecr.io'
+    dockerComposeFile: 'docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'docker-compose up'
+    arguments: '-d'
+  
