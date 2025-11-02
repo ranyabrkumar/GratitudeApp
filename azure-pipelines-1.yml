@@ -16,7 +16,7 @@ steps:
 - script: |
 
     echo "Logging in to ACR..."
-    echo "$(ACR_PASSWORD)" | docker login myregistry.azurecr.io -u ranyabrkumar --password-stdin
+    echo "$(ACR_PASSWORD)" | docker login ranyabrkumar.azurecr.io -u ranyabrkumar --password-stdin
 
   displayName: 'Login to ACR'
 - task: DockerCompose@1
