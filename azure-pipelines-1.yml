@@ -14,11 +14,10 @@ pool:
 
 steps:
 - script: |
-
     echo "Logging in to ACR..."
     echo "$(ACR_PASSWORD)" | docker login ranyabrkumar.azurecr.io -u ranyabrkumar --password-stdin
-
   displayName: 'Login to ACR'
+
 - task: DockerCompose@1
 
   displayName: 'Build and run Docker Compose'
