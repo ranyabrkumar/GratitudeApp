@@ -7,11 +7,6 @@ pool:
     - agent.name -equals agent_hvpool
 
 steps:
-#azure login
-- script: |
-
-    echo "Logging in to ACR..."
-    echo "$(ACR_PASSWORD)" | docker login ranyabrkumar.azurecr.io -u ranyabrkumar --password-stdin
 
 # Step 1: Login to Azure ACR
 - task: AzureCLI@2
