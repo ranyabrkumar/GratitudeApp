@@ -44,20 +44,24 @@ steps:
 
     action: 'Build services'
 
-- task: DockerCompose@1
+- script: docker compose up -d
 
   displayName: 'Run Docker Compose'
 
-  inputs:
+# - task: DockerCompose@1
 
-    containerregistrytype: 'Other'
+#   displayName: 'Run Docker Compose'
 
-    dockerComposeFile: 'docker-compose.yml'
+#   inputs:
 
-    projectName: 'gratitudeapp'
+#     containerregistrytype: 'Other'
 
-    action: 'Run a Docker Compose command'
+#     dockerComposeFile: 'docker-compose.yml'
 
-    dockerComposeCommand: 'docker-compose up'
+#     projectName: 'gratitudeapp'
 
-    arguments: '-d' 
+#     action: 'Run Docker Compose'
+
+    # dockerComposeCommand: 'docker-compose up'
+
+    # arguments: '-d' 
