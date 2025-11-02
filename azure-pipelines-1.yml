@@ -24,7 +24,7 @@ steps:
   displayName: 'Build and run Docker Compose'
   inputs:
     containerregistrytype: 'Azure Container Registry'
-    azureSubscription: 'Academics-Pay-As-You-Go(a4d417d6-4b7d-4dbc-8702-15f88c83dc21)'
+    azureSubscription: 'Academics-Pay-As-You-Go'
     azureContainerRegistry: 'pranshub11gratitudeapp.azurecr.io'
     dockerComposeFile: 'docker-compose.yml'
     action: 'Run a Docker Compose command'
