@@ -54,6 +54,8 @@ steps:
 
     dockerComposeFile: 'docker-compose.yml'
 
+    projectName: 'gratitudeapp'
+
     action: 'Run a Docker Compose command'
 
     dockerComposeCommand: 'docker-compose up'
